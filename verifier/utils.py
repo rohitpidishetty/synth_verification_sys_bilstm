@@ -275,7 +275,7 @@ stopwords = [
 ]
 
 lem = WordNetLemmatizer()
-model = SentenceTransformer("all-mpnet-base-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 
 download_model()
@@ -310,4 +310,5 @@ def auditor(data):
       outputs, _ = model_lstm(X_single.to(device))
       pred_class = torch.argmax(torch.softmax(outputs, dim=1), dim=1).item()
   return pred_class
+
 
