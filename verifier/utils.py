@@ -5,7 +5,8 @@ import re
 from nltk.stem import WordNetLemmatizer
 from sentence_transformers import SentenceTransformer
 import torch
-from nnModel import BiLSTM_Attention_Model
+from verifier.nnModel import BiLSTM_Attention_Model
+
 
 import os
 from azure.storage.blob import BlobServiceClient
@@ -339,6 +340,7 @@ def auditor(data):
       outputs, _ = model_lstm(X_single.to(device))
       pred_class = torch.argmax(torch.softmax(outputs, dim=1), dim=1).item()
   return pred_class
+
 
 
 
