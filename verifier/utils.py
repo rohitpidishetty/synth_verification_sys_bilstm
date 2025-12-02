@@ -13,7 +13,7 @@ from azure.storage.blob import BlobServiceClient
 from utils.download import download_model
 
 def download_blob_folder(container_name, blob_prefix, local_path):
-    conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+    conn_str = os.getenv("DefaultEndpointsProtocol=https;AccountName=synthauditor;AccountKey=tVbibIqXWK4VYrRzZ0GHgsSJC2AQ8RLBaaDotQG/TLvRLf+WF74xLmPkgD6MwPNb6i1L8FFdOHf3+AStzczhwg==;EndpointSuffix=core.windows.net")
     blob_service_client = BlobServiceClient.from_connection_string(conn_str)
     container_client = blob_service_client.get_container_client(container_name)
 
@@ -340,6 +340,7 @@ def auditor(data):
       outputs, _ = model_lstm(X_single.to(device))
       pred_class = torch.argmax(torch.softmax(outputs, dim=1), dim=1).item()
   return pred_class
+
 
 
 
