@@ -127,7 +127,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 CORS_ALLOWED_ORIGINS = [
-    "https://localhost:3000",
+    "http://localhost:3000",
     "https://yaari-jud.web.app",
 ]
 
@@ -141,4 +141,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 BASE_URL = "https://yaari-dgawh2beexaycmg9.canadacentral-01.azurewebsites.net/test/"
+
 
