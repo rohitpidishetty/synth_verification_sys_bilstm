@@ -5,7 +5,5 @@ psycopg2-binary==2.9.9
 azure-storage-blob==12.19.0  
 python-dotenv==1.0.1        
 djangorestframework==3.15.1
-sentence-transformers==2.6.0
 django-cors-headers
-torch==2.3.0
 
