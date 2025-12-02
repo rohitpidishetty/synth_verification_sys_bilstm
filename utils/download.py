@@ -3,7 +3,7 @@ from azure.storage.blob import BlobServiceClient
 
 
 def download_model():
-    conn_str = "DefaultEndpointsProtocol=https;AccountName=synthauditor;AccountKey=tVbibIqXWK4VYrRzZ0GHgsSJC2AQ8RLBaaDotQG/TLvRLf+WF74xLmPkgD6MwPNb6i1L8FFdOHf3+AStzczhwg==;EndpointSuffix=core.windows.net
+    conn_str = "DefaultEndpointsProtocol=https;AccountName=synthauditor;AccountKey=tVbibIqXWK4VYrRzZ0GHgsSJC2AQ8RLBaaDotQG/TLvRLf+WF74xLmPkgD6MwPNb6i1L8FFdOHf3+AStzczhwg==;EndpointSuffix=core.windows.net"
     container_name = "model"
     blob_name = "yaari-synth-auditor-model-v1.pth"
     local_path = "./model/yaari-synth-auditor-model-v1.pth"
