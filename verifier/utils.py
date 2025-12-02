@@ -1,11 +1,35 @@
+import sys
+sys.path.append("./model/torch") 
+
 import re
 from nltk.stem import WordNetLemmatizer
 from sentence_transformers import SentenceTransformer
 import torch
-from .nnModel import BiLSTM_Attention_Model
+from nnModel import BiLSTM_Attention_Model
+
+import os
+from azure.storage.blob import BlobServiceClient
 from utils.download import download_model
 
+def download_blob_folder(container_name, blob_prefix, local_path):
+    conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+    blob_service_client = BlobServiceClient.from_connection_string(conn_str)
+    container_client = blob_service_client.get_container_client(container_name)
 
+    os.makedirs(local_path, exist_ok=True)
+
+    blobs = container_client.list_blobs(name_starts_with=blob_prefix)
+    for blob in blobs:
+        blob_client = container_client.get_blob_client(blob.name)
+        rel_path = os.path.relpath(blob.name, blob_prefix)
+        local_file_path = os.path.join(local_path, rel_path)
+        os.makedirs(os.path.dirname(local_file_path), exist_ok=True)
+        with open(local_file_path, "wb") as f:
+            f.write(blob_client.download_blob().readall())
+        print(f"Downloaded {blob.name} -> {local_file_path}")
+
+st_local_path = "./model/sentence-transformer-all-mpnet-base-v2"
+download_blob_folder("model", "sentence-transformer-all-mpnet-base-v2/", st_local_path)
 
 stopwords = [
     # Standard stopwords
@@ -275,10 +299,15 @@ stopwords = [
 ]
 
 lem = WordNetLemmatizer()
-model = SentenceTransformer("all-mpnet-base-v2")
+model = SentenceTransformer(st_local_path)
 
 
 download_model()
+
+
+path = "./model/torch"
+
+download_blob_folder("model", "torch/", path)
 
 
 model_lstm = BiLSTM_Attention_Model(input_dim=768, hidden_dim=256, num_classes=2)
@@ -310,6 +339,7 @@ def auditor(data):
       outputs, _ = model_lstm(X_single.to(device))
       pred_class = torch.argmax(torch.softmax(outputs, dim=1), dim=1).item()
   return pred_class
+
 
 
 

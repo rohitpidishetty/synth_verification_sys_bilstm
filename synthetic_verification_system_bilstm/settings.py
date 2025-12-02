@@ -33,8 +33,7 @@ SECRET_KEY = "django-insecure-1@ycdf3*1s%hc*lzw7+8^da&69_fi3bdt_^s-15xdi=h%j447q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 
 # Application definition
@@ -133,5 +132,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 BASE_URL = "https://yaari-dgawh2beexaycmg9.canadacentral-01.azurewebsites.net/test/"
