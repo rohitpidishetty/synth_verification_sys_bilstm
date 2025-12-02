@@ -30,7 +30,8 @@ def download_blob_folder(container_name, blob_prefix, local_path):
         print(f"Downloaded {blob.name} -> {local_file_path}")
 
 st_local_path = "./model/sentence-transformer-all-mpnet-base-v2"
-download_blob_folder("model", "sentence-transformer-all-mpnet-base-v2/", st_local_path)
+if not os.path.exists(st_local_path):
+    download_blob_folder("model", "sentence-transformer-all-mpnet-base-v2/", st_local_path)
 
 stopwords = [
     # Standard stopwords
@@ -307,8 +308,8 @@ download_model()
 
 
 path = "./model/torch"
-
-download_blob_folder("model", "torch/", path)
+if not os.path.exists(path):
+    download_blob_folder("model", "torch/", path)
 
 
 model_lstm = BiLSTM_Attention_Model(input_dim=768, hidden_dim=256, num_classes=2)
@@ -340,6 +341,7 @@ def auditor(data):
       outputs, _ = model_lstm(X_single.to(device))
       pred_class = torch.argmax(torch.softmax(outputs, dim=1), dim=1).item()
   return pred_class
+
 
 
 
