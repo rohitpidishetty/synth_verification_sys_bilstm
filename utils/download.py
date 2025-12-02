@@ -3,10 +3,10 @@ from azure.storage.blob import BlobServiceClient
 
 
 def download_model():
-    conn_str = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-    container_name = os.getenv("MODEL_CONTAINER_NAME")
-    blob_name = os.getenv("MODEL_BLOB_NAME")
-    local_path = os.getenv("MODEL_LOCAL_PATH")
+    conn_str = os.getenv("DefaultEndpointsProtocol=https;AccountName=synthauditor;AccountKey=tVbibIqXWK4VYrRzZ0GHgsSJC2AQ8RLBaaDotQG/TLvRLf+WF74xLmPkgD6MwPNb6i1L8FFdOHf3+AStzczhwg==;EndpointSuffix=core.windows.net")
+    container_name = os.getenv("model")
+    blob_name = os.getenv("yaari-synth-auditor-model-v1.pth")
+    local_path = os.getenv("./model/yaari-synth-auditor-model-v1.pth")
 
     if not os.path.exists(local_path):
         blob_service_client = BlobServiceClient.from_connection_string(conn_str)
